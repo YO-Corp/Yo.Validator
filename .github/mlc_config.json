@@ -1,0 +1,31 @@
+{
+  "ignorePatterns": [
+    {
+      "pattern": "^https://github\\.com/YO-Corp/"
+    },
+    {
+      "pattern": "^https://yoscan\\.net"
+    },
+    {
+      "pattern": "^https://rpc\\.yoscan\\.net"
+    },
+    {
+      "pattern": "^https://t\\.me/"
+    },
+    {
+      "pattern": "^mailto:"
+    }
+  ],
+  "timeout": "10s",
+  "retryOn429": true,
+  "retryCount": 3,
+  "fallbackHttpStatus": [
+    400,
+    401,
+    403,
+    404,
+    500,
+    502,
+    503
+  ]
+}
