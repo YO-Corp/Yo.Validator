@@ -1,0 +1,43 @@
+version: '3.8'
+
+services:
+  yomlm-validator:
+    image: tharsishq/evmos:v20.0.0
+    container_name: yomlm-validator
+    restart: unless-stopped
+    ports:
+      - "26656:26656"  # P2P
+      - "26657:26657"  # RPC
+      - "8545:8545"    # JSON-RPC
+      - "8546:8546"    # WebSocket
+      - "9090:9090"    # gRPC
+    volumes:
+      - ${PWD}/config:/root/.evmosd/config
+      - ${PWD}/data:/root/.evmosd/data
+      - ${PWD}/logs:/logs
+    command: [
+      "evmosd", "start",
+      "--home", "/root/.evmosd",
+      "--chain-id", "yomlm_100892-1",
+      "--minimum-gas-prices=0.0001ayomlm",
+      "--json-rpc.api", "eth,txpool,personal,net,debug,web3",
+      "--json-rpc.enable",
+      "--json-rpc.address", "0.0.0.0:8545",
+      "--json-rpc.ws-address", "0.0.0.0:8546",
+      "--rpc.laddr", "tcp://0.0.0.0:26657",
+      "--p2p.laddr", "tcp://0.0.0.0:26656"
+    ]
+    environment:
+      - EVMOSD_HOME=/root/.evmosd
+    networks:
+      - yomlm-network
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8545"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+networks:
+  yomlm-network:
+    driver: bridge

@@ -1,0 +1,53 @@
+# Logs
+*.log
+validator.log
+*.log.*
+
+# Runtime data
+data/
+chaindata/
+keystore/
+*.pid
+*.seed
+
+# Environment variables
+.env
+.env.local
+.env.production
+
+# Node modules
+node_modules/
+
+# Build outputs
+build/
+dist/
+target/
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Validator specific
+validator/
+keys/
+*.key
+*.priv
+
+# Docker
+.docker/
+*.tar
+
+# Temporary files
+tmp/
+temp/
+*.tmp
+
+# Backup files
+*.bak
+*.backup

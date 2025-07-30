@@ -1,0 +1,46 @@
+# YO Network Validator Configuration
+
+# Network settings
+genesis-file="config/genesis.json"
+network-id=2025
+static-nodes-file="config/static-nodes.json"
+
+# Node settings
+data-path="data"
+logging="info"
+
+# JSON-RPC settings
+rpc-http-enabled=true
+rpc-http-host="0.0.0.0"
+rpc-http-port=8545
+rpc-http-cors-origins=["*"]
+rpc-http-api=["ETH","NET","WEB3","CLIQUE","DEBUG","TXPOOL","ADMIN"]
+
+# WebSocket settings
+rpc-ws-enabled=true
+rpc-ws-host="0.0.0.0"
+rpc-ws-port=8546
+rpc-ws-api=["ETH","NET","WEB3","CLIQUE","DEBUG","TXPOOL"]
+
+# P2P settings
+p2p-enabled=true
+p2p-host="0.0.0.0"
+p2p-port=30303
+max-peers=25
+
+# Metrics
+metrics-enabled=true
+metrics-host="0.0.0.0"
+metrics-port=9545
+
+# Mining (validation)
+miner-enabled=true
+miner-coinbase="0x742d35Cc6634C0532925a3b8D5c9e4ddE5b1f0b4"
+min-gas-price=1000000000
+
+# Sync settings
+sync-mode="fast"
+fast-sync-min-peers=1
+
+# Performance
+tx-pool-max-size=4096
