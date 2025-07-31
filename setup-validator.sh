@@ -31,7 +31,7 @@ printf "${GREEN}🚀 Starting YO Network Validator Setup...${NC}\n"
 printf "${BLUE}Chain ID: $CHAIN_ID${NC}\n"
 printf "${BLUE}Network: $NETWORK_NAME${NC}\n"
 printf "${BLUE}Bootnode: $BOOTNODE_IP${NC}\n"
-printf "${BLUE}Using existing YOMLM genesis configuration${NC}\n"
+printf "${BLUE}Using existing YO genesis configuration${NC}\n"
 printf "\n"
 
 # Detect OS and architecture
@@ -156,7 +156,7 @@ mkdir -p logs
 printf "${GREEN}✅ Directory structure created${NC}\n"
 
 # Copy existing genesis file
-printf "${YELLOW}⚙️ Using existing YOMLM genesis configuration...${NC}\n"
+printf "${YELLOW}⚙️ Using existing YO genesis configuration...${NC}\n"
 
 # Check if the genesis file exists in the parent created directory
 GENESIS_SOURCE="../created/config/genesis.json"
@@ -185,7 +185,7 @@ printf "${GREEN}✅ Network configuration created${NC}\n"
 printf "${YELLOW}⚙️ Creating Evmos configuration...${NC}\n"
 
 cat > config/config.toml << 'EOF'
-# YOMLM Network Validator Configuration
+# YO Network Validator Configuration
 
 # Base Configuration
 proxy_app = "tcp://127.0.0.1:26658"
@@ -247,7 +247,7 @@ printf "${GREEN}✅ Evmos configuration created${NC}\n"
 
 # Create app.toml for Evmos application configuration
 cat > config/app.toml << 'EOF'
-# YOMLM Network Application Configuration
+# YO Network Application Configuration
 
 # Base Configuration
 minimum-gas-prices = "0.0001ayomlm"
@@ -304,7 +304,7 @@ printf "${YELLOW}� Creating startup script...${NC}\n"
 cat > start-validator.sh << 'EOF'
 #!/bin/bash
 
-# YOMLM Network Validator Start Script
+# YO Network Validator Start Script
 
 set -e
 
@@ -314,7 +314,7 @@ YELLOW='\033[1;33m'
 RED='\033[0;31m'
 NC='\033[0m'
 
-printf "${GREEN}🚀 Starting YOMLM Network Validator...${NC}\n"
+printf "${GREEN}🚀 Starting YO Network Validator...${NC}\n"
 
 # Check if evmosd is available
 if ! command -v evmosd &> /dev/null && [ ! -f "/usr/local/bin/evmosd" ]; then
@@ -368,7 +368,7 @@ chmod +x start-validator.sh
 printf "${YELLOW}📝 Creating environment configuration...${NC}\n"
 
 cat > .env << EOF
-# YOMLM Network Validator Configuration
+# YO Network Validator Configuration
 
 # Network Configuration
 CHAIN_ID=yomlm_100892-1
@@ -440,7 +440,7 @@ printf "${YELLOW}📜 Creating management scripts...${NC}\n"
 cat > stop-validator.sh << 'EOF'
 #!/bin/bash
 
-# YOMLM Network Validator Stop Script
+# YO Network Validator Stop Script
 
 set -e
 
@@ -450,7 +450,7 @@ YELLOW='\033[1;33m'
 RED='\033[0;31m'
 NC='\033[0m'
 
-printf "${YELLOW}� Stopping YOMLM Network Validator...${NC}\n"
+printf "${YELLOW}� Stopping YO Network Validator...${NC}\n"
 
 # Stop the validator
 pkill -f "evmosd start" || printf "${YELLOW}No validator process found${NC}\n"
@@ -464,7 +464,7 @@ chmod +x stop-validator.sh
 cat > check-status.sh << 'EOF'
 #!/bin/bash
 
-# YOMLM Network Validator Status Check
+# YO Network Validator Status Check
 
 set -e
 
@@ -474,7 +474,7 @@ YELLOW='\033[1;33m'
 RED='\033[0;31m'
 NC='\033[0m'
 
-printf "${BLUE}📊 YOMLM Network Validator Status${NC}\n"
+printf "${BLUE}📊 YO Network Validator Status${NC}\n"
 printf "═══════════════════════════════════════\n"
 
 # Check if process is running
@@ -526,14 +526,14 @@ chmod +x check-status.sh
 cat > scripts/health-check.sh << 'EOF'
 #!/bin/bash
 
-# YOMLM Network Validator Health Check
+# YO Network Validator Health Check
 
 GREEN='\033[0;32m'
 RED='\033[0;31m'
 YELLOW='\033[1;33m'
 NC='\033[0m'
 
-printf "${YELLOW}🏥 YOMLM Validator Health Check${NC}\n"
+printf "${YELLOW}🏥 YO Validator Health Check${NC}\n"
 printf "════════════════════════════════════\n"
 
 # Check if process is running
@@ -588,7 +588,7 @@ chmod +x scripts/health-check.sh
 cat > scripts/backup-keys.sh << 'EOF'
 #!/bin/bash
 
-# YOMLM Network Key Backup Script
+# YO Network Key Backup Script
 
 GREEN='\033[0;32m'
 YELLOW='\033[1;33m'
@@ -626,14 +626,14 @@ chmod +x scripts/backup-keys.sh
 cat > scripts/update-node.sh << 'EOF'
 #!/bin/bash
 
-# YOMLM Network Update Script
+# YO Network Update Script
 
 GREEN='\033[0;32m'
 YELLOW='\033[1;33m'
 RED='\033[0;31m'
 NC='\033[0m'
 
-printf "${YELLOW}🔄 Updating YOMLM validator...${NC}\n"
+printf "${YELLOW}🔄 Updating YO validator...${NC}\n"
 
 # Stop validator if running
 if pgrep -f "evmosd start" > /dev/null; then

@@ -1,6 +1,6 @@
 ---
 name: Bug Report
-about: Create a report to help us improve YOMLM Network Validator
+about: Create a report to help us improve YO Network Validator
 title: '[BUG] '
 labels: 'bug'
 assignees: ''

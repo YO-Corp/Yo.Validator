@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# YOMLM Network Validator Status Check
+# YO Network Validator Status Check
 
 set -e
 
@@ -13,7 +13,7 @@ NC='\033[0m'
 
 printf "${PURPLE}"
 printf "╔══════════════════════════════════════════════════════════════╗\n"
-printf "║               YOMLM Network Validator Status                 ║\n"
+printf "║               YO Network Validator Status                 ║\n"
 printf "╚══════════════════════════════════════════════════════════════╝\n"
 printf "${NC}\n"
 

@@ -1,7 +1,7 @@
 #!/bin/bash
 
-# YOMLM Network Validator Key Generation Script
-# This script generates validator keys for the YOMLM network
+# YO Network Validator Key Generation Script
+# This script generates validator keys for the YO network
 
 set -e
 
@@ -15,7 +15,7 @@ NC='\033[0m'
 
 printf "${PURPLE}"
 printf "╔══════════════════════════════════════════════════════════════╗\n"
-printf "║              YOMLM Network Key Generation                    ║\n"
+printf "║              YO Network Key Generation                    ║\n"
 printf "╚══════════════════════════════════════════════════════════════╝\n"
 printf "${NC}\n"
 
@@ -24,7 +24,7 @@ CHAIN_ID="yomlm_100892-1"
 MONIKER="yomlm-validator"
 HOME_DIR="$(pwd)"
 
-printf "${GREEN}🔐 Generating YOMLM validator keys...${NC}\n"
+printf "${GREEN}🔐 Generating YO validator keys...${NC}\n"
 printf "${BLUE}Chain ID: $CHAIN_ID${NC}\n"
 printf "${BLUE}Moniker: $MONIKER${NC}\n"
 printf "${BLUE}Home Directory: $HOME_DIR${NC}\n"

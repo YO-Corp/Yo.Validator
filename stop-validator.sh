@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# YOMLM Network Validator Stop Script
+# YO Network Validator Stop Script
 
 set -e
 
@@ -10,11 +10,11 @@ YELLOW='\033[1;33m'
 RED='\033[0;31m'
 NC='\033[0m'
 
-printf "${YELLOW}🛑 Stopping YOMLM Network Validator...${NC}\n"
+printf "${YELLOW}🛑 Stopping YO Network Validator...${NC}\n"
 
 # Check if validator is running
 if ! pgrep -f "evmosd start" > /dev/null; then
-    printf "${YELLOW}⚠️ No YOMLM validator process found${NC}\n"
+    printf "${YELLOW}⚠️ No YO validator process found${NC}\n"
     exit 0
 fi
 
@@ -41,7 +41,7 @@ fi
 
 # Verify it's stopped
 if ! pgrep -f "evmosd start" > /dev/null; then
-    printf "${GREEN}✅ YOMLM validator stopped successfully!${NC}\n"
+    printf "${GREEN}✅ YO validator stopped successfully!${NC}\n"
     printf "\n"
     printf "${BLUE}📋 Next Steps:${NC}\n"
     printf "${BLUE}  - Start again: ./start-validator.sh${NC}\n"

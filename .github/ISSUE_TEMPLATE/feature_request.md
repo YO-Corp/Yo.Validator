@@ -1,6 +1,6 @@
 ---
 name: Feature Request
-about: Suggest an idea for YOMLM Network Validator
+about: Suggest an idea for YO Network Validator
 title: '[FEATURE] '
 labels: 'enhancement'
 assignees: ''
@@ -27,7 +27,7 @@ If you have ideas on how this could be implemented, please describe them here.
 Describe any alternative solutions or features you've considered.
 
 ### 📊 Benefits
-How would this feature benefit YOMLM Network users and validators?
+How would this feature benefit YO Network users and validators?
 
 ### 📈 Use Cases
 Describe specific use cases where this feature would be valuable.

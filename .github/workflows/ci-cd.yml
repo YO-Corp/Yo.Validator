@@ -1,4 +1,4 @@
-name: YOMLM Validator CI/CD
+name: YO Validator CI/CD
 
 on:
   push:

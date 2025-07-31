@@ -1,15 +1,15 @@
 <div align="center">
 
-# 🚀 YOMLM Network Validator
+# 🚀 YO Network Validator
 
-![YOMLM Network](https://img.shields.io/badge/YOMLM-Network-blue?style=for-the-badge&logo=ethereum&logoColor=white)
+![YO Network](https://img.shields.io/badge/YO-Network-blue?style=for-the-badge&logo=ethereum&logoColor=white)
 ![Chain ID](https://img.shields.io/badge/Chain%20ID-yomlm__100892--1-green?style=for-the-badge)
 ![Consensus](https://img.shields.io/badge/Consensus-Tendermint-purple?style=for-the-badge)
 ![EVMOS Powered](https://img.shields.io/badge/Powered%20by-EVMOS-orange?style=for-the-badge)
 
 ### 🌟 Enterprise-Grade EVM-Compatible Blockchain Infrastructure
 
-*Join the next generation of decentralized finance with YOMLM Network's institutional-grade validator platform powered by EVMOS technology*
+*Join the next generation of decentralized finance with YO Network's institutional-grade validator platform powered by EVMOS technology*
 
 🇮🇳 **Made in India** • 🔒 **Bank-Level Security** • ⚡ **Lightning Fast** • 💎 **Profitable** • 🔗 **EVM Compatible**
 
@@ -19,7 +19,7 @@
 
 ## 🚀 About EVMOS Technology
 
-YOMLM Network is built on **EVMOS**, a revolutionary blockchain technology that bridges Ethereum and Cosmos ecosystems. EVMOS is a scalable, high-throughput Proof-of-Stake EVM blockchain that provides:
+YO Network is built on **EVMOS**, a revolutionary blockchain technology that bridges Ethereum and Cosmos ecosystems. EVMOS is a scalable, high-throughput Proof-of-Stake EVM blockchain that provides:
 
 ### 🏗️ **Core Architecture**
 - **EVM Compatibility**: Full Ethereum Virtual Machine compatibility for seamless dApp migration
@@ -81,7 +81,7 @@ CometBFT (formerly Tendermint) provides instant finality and Byzantine fault tol
 
 ## 🔗 EVMOS vs Other Blockchains
 
-| Feature | YOMLM/EVMOS | Ethereum | Polygon | BSC | Avalanche |
+| Feature | YO/EVMOS | Ethereum | Polygon | BSC | Avalanche |
 |---------|-------------|----------|---------|-----|-----------|
 | **TPS** | 10,000+ | 15 | 7,000 | 55 | 4,500 |
 | **Finality** | 2 seconds | 12+ min | 2 seconds | 3 seconds | 3 seconds |
@@ -91,7 +91,7 @@ CometBFT (formerly Tendermint) provides instant finality and Byzantine fault tol
 | **Governance** | On-chain | On-chain | Off-chain | Off-chain | On-chain |
 | **Gas Fees** | Ultra Low | High | Low | Low | Low |
 
-## 🌟 Why Choose YOMLM Network?
+## 🌟 Why Choose YO Network?
 
 ✨ **Institutional Grade**: Built for enterprise adoption with bank-level security  
 ⚡ **Lightning Fast**: 2-second block finality with CometBFT consensus  
@@ -106,7 +106,7 @@ CometBFT (formerly Tendermint) provides instant finality and Byzantine fault tol
 
 | Specification | Value | Status |
 |---------------|-------|--------|
-| **Network Name** | YOMLM Network | 🟢 Live |
+| **Network Name** | YO Network | 🟢 Live |
 | **Chain ID** | yomlm_100892-1 | ✅ Active |
 | **Consensus Algorithm** | CometBFT (Tendermint) + EVMOS | 🔥 Optimized |
 | **Block Time** | 2 seconds | ⚡ Lightning Fast |
@@ -462,7 +462,7 @@ tail -f validator.log | grep -E "(ERROR|WARN)"
 | Contact Type | Details | Availability |
 |--------------|---------|--------------|
 | **🐛 GitHub Issues** | [Report Issues](https://github.com/YO-Corp/Yo.Validator/issues) | Always Available |
-| **💬 Telegram** | [YOMLM Network Official](https://t.me/yochainofficial) | Real-time Updates |
+| **💬 Telegram** | [YO Network Official](https://t.me/yochainofficial) | Real-time Updates |
 | **📧 Email Support** | support@yochain.club | 24/7 Technical Support |
 
 ## 🤝 Contributing
@@ -489,7 +489,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 <div align="center">
 
-### 🌐 Explore YOMLM Network
+### 🌐 Explore YO Network
 
 [![Website](https://img.shields.io/badge/🌐_Website-yochain.club-blue?style=for-the-badge)](https://yochain.club)
 [![Explorer](https://img.shields.io/badge/🔍_Explorer-yoscan.net-green?style=for-the-badge)](https://yoscan.net)
@@ -505,7 +505,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ### 🚀 **[Get Started Now!](https://github.com/YO-Corp/Yo.Validator.git)**
 
-**© 2025 YOMLM Network • Built with ❤️ for the decentralized future**
+**© 2025 YO Network • Built with ❤️ for the decentralized future**
 
 *🇮🇳 Proudly supporting Digital India initiative*
 

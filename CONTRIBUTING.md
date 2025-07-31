@@ -1,6 +1,6 @@
-# Contributing to YOMLM Network Validator
+# Contributing to YO Network Validator
 
-Thank you for your interest in contributing to the YOMLM Network Validator project! This document provides guidelines for contributing to our codebase.
+Thank you for your interest in contributing to the YO Network Validator project! This document provides guidelines for contributing to our codebase.
 
 ## 🚀 Getting Started
 
@@ -123,7 +123,7 @@ For feature requests, please provide:
 - [Docker Documentation](https://docs.docker.com/)
 
 ### Community
-- [YOMLM Telegram](https://t.me/yochainofficial)
+- [YO Telegram](https://t.me/yochainofficial)
 - [GitHub Discussions](https://github.com/YO-Corp/Yo.Validator/discussions)
 
 ## 📄 License
@@ -137,4 +137,4 @@ Contributors will be acknowledged in:
 - Release notes for significant contributions
 - Project documentation where applicable
 
-Thank you for helping make the YOMLM Network Validator better! 🎉
+Thank you for helping make the YO Network Validator better! 🎉

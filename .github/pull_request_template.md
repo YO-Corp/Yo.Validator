@@ -1,5 +1,5 @@
 name: Pull Request
-about: Create a pull request to contribute to YOMLM Network Validator
+about: Create a pull request to contribute to YO Network Validator
 title: ''
 labels: ''
 assignees: ''

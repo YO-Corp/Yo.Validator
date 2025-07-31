@@ -1,7 +1,7 @@
 #!/bin/bash
 
-# YOMLM Network Validator Start Script
-# This script starts a YOMLM validator node
+# YO Network Validator Start Script
+# This script starts a YO validator node
 
 set -e
 
@@ -16,7 +16,7 @@ NC='\033[0m'
 CHAIN_ID="yomlm_100892-1"
 HOME_DIR="$(pwd)"
 
-printf "${GREEN}🚀 Starting YOMLM Network Validator...${NC}\n"
+printf "${GREEN}🚀 Starting YO Network Validator...${NC}\n"
 printf "${BLUE}Chain ID: $CHAIN_ID${NC}\n"
 printf "${BLUE}Home Directory: $HOME_DIR${NC}\n"
 printf "\n"
@@ -48,7 +48,7 @@ fi
 
 # Check if already running
 if pgrep -f "evmosd start" > /dev/null; then
-    printf "${YELLOW}⚠️ YOMLM validator is already running!${NC}\n"
+    printf "${YELLOW}⚠️ YO validator is already running!${NC}\n"
     printf "${BLUE}Process IDs:${NC}\n"
     pgrep -f "evmosd start"
     printf "\n"
@@ -81,7 +81,7 @@ printf "${BLUE}  - gRPC: http://localhost:9090${NC}\n"
 printf "${BLUE}  - P2P: tcp://0.0.0.0:26656${NC}\n"
 printf "\n"
 
-printf "${GREEN}🚀 Starting YOMLM validator node...${NC}\n"
+printf "${GREEN}🚀 Starting YO validator node...${NC}\n"
 printf "${YELLOW}Note: This will run in foreground. Use Ctrl+C to stop, or run with nohup for background.${NC}\n"
 printf "\n"
 

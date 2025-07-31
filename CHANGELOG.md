@@ -1,6 +1,6 @@
 # Changelog
 
-All notable changes to the YOMLM Network Validator project will be documented in this file.
+All notable changes to the YO Network Validator project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
@@ -18,7 +18,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 - **Initial Release** 🎉
-- Complete YOMLM Network validator setup scripts
+- Complete YO Network validator setup scripts
 - EVMOS v20.0.0 integration with CometBFT consensus
 - Automated validator deployment with `setup-validator.sh`
 - Docker Compose configuration for containerized deployment
@@ -114,7 +114,7 @@ See [SECURITY.md](SECURITY.md) for our security policy and vulnerability reporti
 
 For support and questions:
 - 📧 Email: support@yochain.club
-- 💬 Telegram: [YOMLM Network Official](https://t.me/yochainofficial)
+- 💬 Telegram: [YO Network Official](https://t.me/yochainofficial)
 - 🐛 Issues: [GitHub Issues](https://github.com/YO-Corp/Yo.Validator/issues)
 
 ---

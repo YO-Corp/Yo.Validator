@@ -2,7 +2,7 @@
 
 ## Supported Versions
 
-We provide security updates for the following versions of YOMLM Network Validator:
+We provide security updates for the following versions of YO Network Validator:
 
 | Version | Supported          |
 | ------- | ------------------ |
@@ -11,7 +11,7 @@ We provide security updates for the following versions of YOMLM Network Validato
 
 ## Reporting a Vulnerability
 
-The YOMLM Network team takes security vulnerabilities seriously. We appreciate your efforts to responsibly disclose security issues.
+The YO Network team takes security vulnerabilities seriously. We appreciate your efforts to responsibly disclose security issues.
 
 ### How to Report
 
@@ -88,7 +88,7 @@ Instead, please send an email to **security@yochain.club** with the following in
 
 ## Bug Bounty Program
 
-We are planning to launch a bug bounty program to reward security researchers who help us improve the security of YOMLM Network. Details will be announced soon.
+We are planning to launch a bug bounty program to reward security researchers who help us improve the security of YO Network. Details will be announced soon.
 
 ### Scope
 The bug bounty program will cover:
@@ -128,7 +128,7 @@ Security advisories will be published at:
 
 ## Legal Safe Harbor
 
-YOMLM Network supports responsible disclosure and will not pursue legal action against security researchers who:
+YO Network supports responsible disclosure and will not pursue legal action against security researchers who:
 
 1. Make a good faith effort to avoid privacy violations and destruction of data
 2. Only interact with accounts they own or have explicit permission to access
@@ -136,4 +136,4 @@ YOMLM Network supports responsible disclosure and will not pursue legal action a
 4. Contact us before making any findings public
 5. Give us reasonable time to resolve the issue before disclosure
 
-Thank you for helping keep YOMLM Network secure! 🔒
+Thank you for helping keep YO Network secure! 🔒
