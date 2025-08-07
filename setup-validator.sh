@@ -14,8 +14,8 @@ PURPLE='\033[0;35m'
 NC='\033[0m' # No Color
 
 # Configuration
-CHAIN_ID="yomlm_100892-1"
-NETWORK_NAME="yomlm-network"
+CHAIN_ID="yo_100892-1"
+NETWORK_NAME="yo-network"
 BOOTNODE_IP="194.164.150.169"
 EVMOS_VERSION="v20.0.0"
 HOME_DIR="$(pwd)"
@@ -250,7 +250,7 @@ cat > config/app.toml << 'EOF'
 # YO Network Application Configuration
 
 # Base Configuration
-minimum-gas-prices = "0.0001ayomlm"
+minimum-gas-prices = "0.0001YO"
 pruning = "custom"
 pruning-keep-recent = "100"
 pruning-interval = "10"
@@ -352,8 +352,8 @@ printf "${GREEN}🚀 Starting validator node...${NC}\n"
 
 exec $EVMOSD_CMD start \
     --home . \
-    --chain-id yomlm_100892-1 \
-    --minimum-gas-prices=0.0001ayomlm \
+    --chain-id yo_100892-1 \
+    --minimum-gas-prices=0.0001YO \
     --json-rpc.api eth,txpool,personal,net,debug,web3 \
     --json-rpc.enable \
     --json-rpc.address 0.0.0.0:8545 \

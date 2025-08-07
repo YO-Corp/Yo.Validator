@@ -1,0 +1,1 @@
+rsync -avz docker-compose.yaml root@194.164.150.169:/root/                         
