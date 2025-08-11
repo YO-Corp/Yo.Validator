@@ -23,7 +23,7 @@ HOME_DIR="$(pwd)"
 # New configuration values
 NEW_PREMINE="1000000000000000000000000000"  # 1 billion YO (with 18 decimals)
 NEW_DENOM="YO"
-NEW_BASE_DENOM="YO"  # Base denomination
+NEW_BASE_DENOM="ayo"  # Base denomination (atomic units)
 VALIDATOR_STAKE="1000000000000000000"  # 1 YO for initial validator stake
 
 printf "${PURPLE}"
@@ -62,20 +62,6 @@ else
     printf "${GREEN}✅ No running validator found${NC}\n"
 fi
 
-# Backup existing configuration
-printf "${YELLOW}📦 Creating backup of existing configuration...${NC}\n"
-BACKUP_DIR="backup_$(date +%Y%m%d_%H%M%S)"
-mkdir -p "$BACKUP_DIR"
-
-if [ -d "config" ]; then
-    cp -r config "$BACKUP_DIR/"
-    printf "${GREEN}✅ Configuration backed up to $BACKUP_DIR${NC}\n"
-fi
-
-if [ -d "data" ]; then
-    cp -r data "$BACKUP_DIR/" 2>/dev/null || echo "No data directory to backup"
-fi
-
 # Check if evmosd is available
 printf "${YELLOW}🔍 Checking Evmos binary...${NC}\n"
 if [ -f "/usr/local/bin/evmosd" ] && ! command -v evmosd &> /dev/null; then
@@ -94,12 +80,23 @@ printf "${YELLOW}🧹 Cleaning existing blockchain data...${NC}\n"
 rm -rf data/
 rm -rf config/genesis.json
 rm -rf config/gentx/
+rm -rf config/config.toml
+rm -rf config/app.toml
+rm -rf keyring-test/
 mkdir -p config/gentx
+mkdir -p data
+echo "{}" > data/priv_validator_state.json
 printf "${GREEN}✅ Existing data cleaned${NC}\n"
 
 # Initialize fresh chain
 printf "${YELLOW}🔧 Initializing fresh chain...${NC}\n"
 $EVMOSD_CMD init yo-validator --chain-id $CHAIN_ID --home .
+
+# Configure client settings
+printf "${YELLOW}⚙️ Configuring client settings...${NC}\n"
+$EVMOSD_CMD config chain-id $CHAIN_ID --home .
+$EVMOSD_CMD config keyring-backend test --home .
+$EVMOSD_CMD config node tcp://localhost:26657 --home .
 
 # Generate validator key if not exists
 if [ ! -f "config/priv_validator_key.json" ]; then
@@ -149,7 +146,7 @@ def update_genesis_for_yo():
         if 'supply' in app_state['bank']:
             for supply in app_state['bank']['supply']:
                 if supply['denom'] in ['ayomlm', 'aevmos']:
-                    supply['denom'] = 'YO'
+                    supply['denom'] = 'ayo'
                     supply['amount'] = '1000000000000000000000000000'  # 1B YO with 18 decimals
         
         # Update balances
@@ -158,18 +155,18 @@ def update_genesis_for_yo():
                 if 'coins' in balance:
                     for coin in balance['coins']:
                         if coin['denom'] in ['ayomlm', 'aevmos']:
-                            coin['denom'] = 'YO'
+                            coin['denom'] = 'ayo'
                             coin['amount'] = '1000000000000000000000000000'
     
     # Update staking module
     if 'staking' in app_state:
         if 'params' in app_state['staking']:
-            app_state['staking']['params']['bond_denom'] = 'YO'
+            app_state['staking']['params']['bond_denom'] = 'ayo'
     
     # Update crisis module
     if 'crisis' in app_state:
         if 'constant_fee' in app_state['crisis']:
-            app_state['crisis']['constant_fee']['denom'] = 'YO'
+            app_state['crisis']['constant_fee']['denom'] = 'ayo'
     
     # Update gov module
     if 'gov' in app_state:
@@ -177,24 +174,24 @@ def update_genesis_for_yo():
             if 'min_deposit' in app_state['gov']['params']:
                 for deposit in app_state['gov']['params']['min_deposit']:
                     if deposit['denom'] in ['ayomlm', 'aevmos']:
-                        deposit['denom'] = 'YO'
-                        deposit['amount'] = '10000000'  # 10 YO for proposals
+                        deposit['denom'] = 'ayo'
+                        deposit['amount'] = '10000000000000000000'  # 10 YO for proposals
             
             if 'expedited_min_deposit' in app_state['gov']['params']:
                 for deposit in app_state['gov']['params']['expedited_min_deposit']:
                     if deposit['denom'] in ['aevmos', 'ayomlm']:
-                        deposit['denom'] = 'YO'
-                        deposit['amount'] = '50000000'  # 50 YO for expedited proposals
+                        deposit['denom'] = 'ayo'
+                        deposit['amount'] = '50000000000000000000'  # 50 YO for expedited proposals
     
     # Update inflation module
     if 'inflation' in app_state:
         if 'params' in app_state['inflation']:
-            app_state['inflation']['params']['mint_denom'] = 'YO'
+            app_state['inflation']['params']['mint_denom'] = 'ayo'
     
     # Update evm module
     if 'evm' in app_state:
         if 'params' in app_state['evm']:
-            app_state['evm']['params']['evm_denom'] = 'YO'
+            app_state['evm']['params']['evm_denom'] = 'ayo'
     
     # Update feemarket module
     if 'feemarket' in app_state:
@@ -210,7 +207,7 @@ def update_genesis_for_yo():
     with open('config/genesis.json', 'w') as f:
         json.dump(genesis, f, indent=2)
     
-    print("✅ Genesis file updated for YO denomination")
+    print("✅ Genesis file updated for YO denomination (ayo)")
 
 if __name__ == "__main__":
     update_genesis_for_yo()
@@ -222,9 +219,17 @@ rm update_genesis.py
 
 printf "${GREEN}✅ Genesis configuration updated for YO denomination${NC}\n"
 
+# Verify chain ID in genesis before proceeding
+GENESIS_CHAIN_ID=$(jq -r '.chain_id' config/genesis.json)
+printf "${BLUE}Genesis Chain ID: $GENESIS_CHAIN_ID${NC}\n"
+if [ "$GENESIS_CHAIN_ID" != "$CHAIN_ID" ]; then
+    printf "${RED}❌ Chain ID mismatch! Expected: $CHAIN_ID, Found: $GENESIS_CHAIN_ID${NC}\n"
+    exit 1
+fi
+
 # Create genesis transaction for validator
 printf "${YELLOW}🏗️ Creating genesis transaction...${NC}\n"
-$EVMOSD_CMD gentx validator ${VALIDATOR_STAKE}YO \
+$EVMOSD_CMD gentx validator ${VALIDATOR_STAKE}ayo \
     --chain-id $CHAIN_ID \
     --moniker "yo-validator" \
     --commission-rate "0.10" \
@@ -232,7 +237,8 @@ $EVMOSD_CMD gentx validator ${VALIDATOR_STAKE}YO \
     --commission-max-change-rate "0.01" \
     --min-self-delegation "1" \
     --keyring-backend test \
-    --home .
+    --home . \
+    --yes
 
 # Collect genesis transactions
 printf "${YELLOW}📋 Collecting genesis transactions...${NC}\n"
@@ -252,7 +258,7 @@ cat > config/app.toml << EOF
 # YO Network Application Configuration
 
 # Base Configuration
-minimum-gas-prices = "0.0001YO"
+minimum-gas-prices = "0.0001ayo"
 pruning = "custom"
 pruning-keep-recent = "100"
 pruning-interval = "10"
@@ -309,12 +315,12 @@ BOOTNODE_IP=$BOOTNODE_IP
 
 # Token Configuration
 NATIVE_DENOM=YO
-BASE_DENOM=YO
+BASE_DENOM=ayo
 PREMINE_AMOUNT=1000000000  # 1 billion YO
 
 # Validator Configuration
 VALIDATOR_NAME=yo-validator
-MIN_GAS_PRICE=0.0001YO
+MIN_GAS_PRICE=0.0001ayo
 
 # Network Ports
 P2P_PORT=26656
@@ -378,7 +384,7 @@ printf "${GREEN}🚀 Starting validator node with YO denomination...${NC}\n"
 exec $EVMOSD_CMD start \
     --home . \
     --chain-id yo_100892-1 \
-    --minimum-gas-prices=0.0001YO \
+    --minimum-gas-prices=0.0001ayo \
     --json-rpc.api eth,txpool,personal,net,debug,web3 \
     --json-rpc.enable \
     --json-rpc.address 0.0.0.0:8545 \
@@ -397,7 +403,7 @@ cat > NETWORK_INFO.md << EOF
 
 ### Token Details
 - **Native Token**: YO
-- **Base Denomination**: YO
+- **Base Denomination**: ayo (atomic units)
 - **Total Premine**: 1,000,000,000 YO (1 billion)
 - **Decimals**: 18
 
@@ -414,7 +420,7 @@ cat > NETWORK_INFO.md << EOF
 - **Min Self Delegation**: 1 YO
 
 ### Gas Configuration
-- **Minimum Gas Price**: 0.0001 YO
+- **Minimum Gas Price**: 0.0001 ayo
 - **Gas Cap**: 50,000,000
 - **Transaction Fee Cap**: 100 YO
 
@@ -427,15 +433,11 @@ cat > NETWORK_INFO.md << EOF
 ## Migration Notes
 
 This network recreation:
-1. Changed denomination from 'ayomlm' to 'YO'
+1. Changed denomination from 'ayomlm' to 'ayo' (atomic YO units)
 2. Reduced premine from ~1 trillion to 1 billion YO
-3. Updated all module configurations for YO denomination
+3. Updated all module configurations for ayo denomination
 4. Updated chain ID to 'yo_100892-1'
 5. Reset blockchain state to genesis
-
-## Backup Information
-
-Previous configuration backed up to: $BACKUP_DIR/
 EOF
 
 # Create verification script
@@ -514,12 +516,11 @@ printf "${NC}\n"
 printf "${GREEN}✅ YO Network successfully recreated with new configuration!${NC}\n"
 printf "\n"
 printf "${YELLOW}📋 Summary of Changes:${NC}\n"
-printf "${BLUE}• Denomination changed from 'ayomlm' to 'YO'${NC}\n"
+printf "${BLUE}• Denomination changed from 'ayomlm' to 'ayo' (atomic YO)${NC}\n"
 printf "${BLUE}• Premine reduced to 1,000,000,000 YO (1 billion)${NC}\n"
 printf "${BLUE}• All modules updated for YO denomination${NC}\n"
 printf "${BLUE}• Chain ID updated to 'yo_100892-1'${NC}\n"
 printf "${BLUE}• Fresh blockchain state (genesis reset)${NC}\n"
-printf "${BLUE}• Previous config backed up to: $BACKUP_DIR${NC}\n"
 printf "\n"
 printf "${YELLOW}🚀 Next Steps:${NC}\n"
 printf "${BLUE}1. Start your validator: ./start-validator.sh${NC}\n"
