@@ -31,6 +31,24 @@ USAGE
 
 if [[ "${1:-}" == "-h" || "${1:-}" == "--help" ]]; then usage; exit 0; fi
 
+# Normalize CHAIN_ID to Cosmos/Evmos format: <id>-<version>
+ORIG_CHAIN_ID="$CHAIN_ID"
+# lower-case
+CHAIN_ID=$(echo "$CHAIN_ID" | tr '[:upper:]' '[:lower:]')
+# if purely digits, prefix and add version
+if [[ "$CHAIN_ID" =~ ^[0-9]+$ ]]; then
+  CHAIN_ID="yo_${CHAIN_ID}-1"
+fi
+# ensure it ends with -<number>
+if [[ ! "$CHAIN_ID" =~ -[0-9]+$ ]]; then
+  CHAIN_ID="${CHAIN_ID}-1"
+fi
+# ensure starts with a letter (prefix if starts with digit or underscore)
+if [[ "$CHAIN_ID" =~ ^[^a-z] ]]; then
+  CHAIN_ID="yo_${CHAIN_ID}"
+fi
+echo "[i] Chain ID normalized: ${ORIG_CHAIN_ID} -> ${CHAIN_ID}"
+
 echo "[i] Setting up private Evmos network"
 echo "    CHAIN_ID=${CHAIN_ID} MONIKER=${MONIKER} DENOM=${DENOM}"
 echo "    HOME_DIR=${HOME_DIR}"
@@ -149,10 +167,14 @@ evmosd validate-genesis --home .
 mkdir -p data
 echo '{}' > data/priv_validator_state.json
 
-# Tweak app.toml: min gas price and archive pruning
+# Tweak app.toml: min gas price and archive pruning (portable sed -i for macOS/Linux)
 APP=config/app.toml
-sed -i "s|^minimum-gas-prices *=.*|minimum-gas-prices = \"${MIN_GAS_PRICE}${BASE_DENOM}\"|" "$APP" || true
-sed -i "s|^pruning *=.*|pruning = \"nothing\"|" "$APP" || true
+case "$(uname -s)" in
+  Darwin*) SED_INPLACE=(-i '') ;;
+  *)       SED_INPLACE=(-i) ;;
+esac
+sed "${SED_INPLACE[@]}" "s|^minimum-gas-prices *=.*|minimum-gas-prices = \"${MIN_GAS_PRICE}${BASE_DENOM}\"|" "$APP" || true
+sed "${SED_INPLACE[@]}" "s|^pruning *=.*|pruning = \"nothing\"|" "$APP" || true
 grep -q '^pruning-keep-recent' "$APP" || echo 'pruning-keep-recent = "0"' >> "$APP"
 grep -q '^pruning-interval' "$APP" || echo 'pruning-interval = "0"' >> "$APP"
 
@@ -160,12 +182,19 @@ grep -q '^pruning-interval' "$APP" || echo 'pruning-interval = "0"' >> "$APP"
 echo
 echo "================= Validator Keys ================="
 set +e
-PRIV_HEX=$(evmosd keys export validator --keyring-backend "$KEYRING" --home . --unarmored-hex --unsafe 2>/dev/null)
+# Try Evmos-specific unsafe ETH key export first; feed a newline to avoid interactive prompts
+PRIV_HEX=$(printf "\n" | evmosd keys unsafe-export-eth-key validator --keyring-backend "$KEYRING" --home . 2>/dev/null)
+# Fallback to Cosmos key export (unarmored hex); also feed newline to avoid blocking
+if [[ -z "${PRIV_HEX:-}" ]]; then
+  PRIV_HEX=$(printf "\n" | evmosd keys export validator --keyring-backend "$KEYRING" --home . --unarmored-hex --unsafe 2>/dev/null)
+fi
 set -e
 if [[ -n "${PRIV_HEX:-}" ]]; then
   echo "Private key (hex, unsafe): $PRIV_HEX"
 else
-  echo "Private key export not available on this build."
+  echo "Private key export not available (non-test keyring or locked key)."
+  echo "Tip: set KEYRING=test for non-interactive export, or export manually with:"
+  echo "  evmosd keys unsafe-export-eth-key validator --keyring-backend test --home ."
 fi
 if [[ -n "${VALIDATOR_MNEMONIC:-}" ]]; then
   echo "Mnemonic: $VALIDATOR_MNEMONIC"
@@ -180,11 +209,10 @@ echo "[i] Setup complete. To start the node run:"
 echo "evmosd start \\
   --home . \\
   --chain-id ${CHAIN_ID} \\
-  --minimum-gas-prices=${MIN_GAS_PRICE}${DENOM} \\
+  --minimum-gas-prices=${MIN_GAS_PRICE}${BASE_DENOM} \\
   --json-rpc.enable \\
   --json-rpc.api eth,txpool,personal,net,debug,web3 \\
   --json-rpc.address 0.0.0.0:${RPC_PORT} \\
   --json-rpc.ws-address 0.0.0.0:${WS_PORT} \\
   --rpc.laddr tcp://0.0.0.0:26657 \\
-  --p2p.laddr tcp://0.0.0.0:26656 \\
-  --iavl-disable-fastnode=true"
+  --p2p.laddr tcp://0.0.0.0:26656"
