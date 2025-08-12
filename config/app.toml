@@ -1,0 +1,47 @@
+# YO Network Application Configuration (default)
+
+# Base Configuration
+minimum-gas-prices = "0.0001ayo"
+pruning = "nothing"
+pruning-keep-recent = "0"
+pruning-interval = "0"
+halt-height = 0
+halt-time = 0
+min-retain-blocks = 0
+inter-block-cache = true
+index-events = []
+
+# JSON-RPC Configuration
+[json-rpc]
+enable = true
+address = "0.0.0.0:8545"
+ws-address = "0.0.0.0:8546"
+api = "eth,txpool,personal,net,debug,web3"
+gas-cap = 50000000
+txfee-cap = 100
+enable-unsafe-cors = true
+
+# gRPC Configuration  
+[grpc]
+enable = true
+address = "0.0.0.0:9090"
+
+# gRPC Web Configuration
+[grpc-web]
+enable = true
+address = "0.0.0.0:9091"
+enable-unsafe-cors = true
+
+# State Sync Configuration
+[state-sync]
+snapshot-interval = 1000
+snapshot-keep-recent = 2
+
+# EVM Configuration
+[evm]
+tracer = ""
+max-tx-gas-wanted = 500000
+
+# Fee Market Configuration
+[feemarket]
+enable = true

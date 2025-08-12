@@ -259,9 +259,11 @@ cat > config/app.toml << EOF
 
 # Base Configuration
 minimum-gas-prices = "0.0001ayo"
-pruning = "custom"
-pruning-keep-recent = "100"
-pruning-interval = "10"
+# Archive node: keep full history to allow queries at any past height
+pruning = "nothing"
+# When pruning = "nothing", the following are ignored but kept here for clarity
+pruning-keep-recent = "0"
+pruning-interval = "0"
 halt-height = 0
 halt-time = 0
 min-retain-blocks = 0
@@ -291,7 +293,8 @@ enable-unsafe-cors = true
 
 # State Sync Configuration
 [state-sync]
-snapshot-interval = 0
+# Take snapshots periodically to help other nodes state-sync (optional)
+snapshot-interval = 1000
 snapshot-keep-recent = 2
 
 # EVM Configuration

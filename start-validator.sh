@@ -13,7 +13,7 @@ RED='\033[0;31m'
 NC='\033[0m'
 
 # Configuration
-CHAIN_ID="yomlm_100892-1"
+CHAIN_ID="yo_100892-1"
 HOME_DIR="$(pwd)"
 
 printf "${GREEN}🚀 Starting YO Network Validator...${NC}\n"
@@ -63,7 +63,7 @@ fi
 # Initialize validator if not done
 if [ ! -d "$HOME_DIR/data" ]; then
     printf "${YELLOW}� Initializing validator for first time...${NC}\n"
-    $EVMOSD_CMD init yomlm-validator --chain-id $CHAIN_ID --home "$HOME_DIR"
+    $EVMOSD_CMD init yo-validator --chain-id $CHAIN_ID --home "$HOME_DIR"
     
     # Copy our genesis file over the generated one
     if [ -f "$HOME_DIR/config/genesis.json.backup" ]; then
@@ -89,7 +89,7 @@ printf "\n"
 exec $EVMOSD_CMD start \
     --home "$HOME_DIR" \
     --chain-id "$CHAIN_ID" \
-    --minimum-gas-prices=0.0001ayomlm \
+    --minimum-gas-prices=0.0001ayo \
     --json-rpc.api eth,txpool,personal,net,debug,web3 \
     --json-rpc.enable \
     --json-rpc.address 0.0.0.0:8545 \

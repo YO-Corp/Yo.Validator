@@ -189,7 +189,7 @@ cat > config/config.toml << 'EOF'
 
 # Base Configuration
 proxy_app = "tcp://127.0.0.1:26658"
-moniker = "yomlm-validator"
+moniker = "yo-validator"
 fast_sync = true
 
 # RPC Server Configuration
@@ -250,10 +250,10 @@ cat > config/app.toml << 'EOF'
 # YO Network Application Configuration
 
 # Base Configuration
-minimum-gas-prices = "0.0001YO"
-pruning = "custom"
-pruning-keep-recent = "100"
-pruning-interval = "10"
+minimum-gas-prices = "0.0001ayo"
+pruning = "nothing"
+pruning-keep-recent = "0"
+pruning-interval = "0"
 halt-height = 0
 halt-time = 0
 min-retain-blocks = 0
@@ -283,7 +283,7 @@ enable-unsafe-cors = true
 
 # State Sync Configuration
 [state-sync]
-snapshot-interval = 0
+snapshot-interval = 1000
 snapshot-keep-recent = 2
 
 # EVM Configuration
@@ -339,7 +339,7 @@ fi
 # Initialize if not done
 if [ ! -d "data" ]; then
     printf "${YELLOW}🔧 Initializing validator...${NC}\n"
-    $EVMOSD_CMD init yomlm-validator --chain-id yomlm_100892-1 --home .
+    $EVMOSD_CMD init yo-validator --chain-id yo_100892-1 --home .
     
     # Copy our genesis file
     cp config/genesis.json config/genesis.json.backup
@@ -353,7 +353,7 @@ printf "${GREEN}🚀 Starting validator node...${NC}\n"
 exec $EVMOSD_CMD start \
     --home . \
     --chain-id yo_100892-1 \
-    --minimum-gas-prices=0.0001YO \
+    --minimum-gas-prices=0.0001ayo \
     --json-rpc.api eth,txpool,personal,net,debug,web3 \
     --json-rpc.enable \
     --json-rpc.address 0.0.0.0:8545 \
