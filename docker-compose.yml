@@ -1,0 +1,32 @@
+version: "3.9"
+
+services:
+  evmos:
+    container_name: yo-evmos
+    build:
+      context: .
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    environment:
+      - CHAIN_ID=yo_100892-1
+      - BASE_DENOM=yo
+      - PREMINE=1000000000000000000000000000
+      - VALIDATOR_STAKE=1000000000000000000
+      - MONIKER=yo-validator
+      - RPC_PORT=8555
+      - WS_PORT=8556
+  entrypoint: ["/bin/sh", "/scripts/docker-entrypoint.sh"]
+    ports:
+      - "26656:26656"   # P2P
+      - "26657:26657"   # Tendermint RPC
+      - "9090:9090"     # gRPC
+      - "8555:8555"     # JSON-RPC
+      - "8556:8556"     # WebSocket
+    volumes:
+      - ./node:/root/.evmosd
+      - ./config:/config:ro
+      - ./scripts:/scripts:ro
+    ulimits:
+      nofile:
+        soft: 65535
+        hard: 65535
